@@ -76,3 +76,51 @@ void printCheck(menuItemType meniuSarasas[], int kiekiai[]) {
 
     fout.close();
 }
+
+int main() {
+    menuItemType meniuSarasas[PATIEKALU_KIEKIS];
+
+    // programa veikia be sustojimo 
+    while (true) {
+        int kiekiai[PATIEKALU_KIEKIS] = {0};
+
+        getData(meniuSarasas);
+        showMenu(meniuSarasas);
+
+        while (true) {
+            int pasirinkimas;
+            cout << "Pasirinkite patiekalo numerį: ";
+            cin >> pasirinkimas;
+
+            if (pasirinkimas == 0) break;
+            if (pasirinkimas < 1 || pasirinkimas > PATIEKALU_KIEKIS) {
+                cout << "Neteisingas pasirinkimas.\n";
+                continue;
+            }
+
+            int porcijos;
+            cout << "Įveskite porcijų kiekį: ";
+            cin >> porcijos;
+
+            if (porcijos > 0)
+                kiekiai[pasirinkimas - 1] += porcijos;
+        }
+
+        printCheck(meniuSarasas, kiekiai);
+
+        cout << "\nSąskaita įrašyta į receipt.txt\n";
+        cout << "\nNorite atlikti naują užsakymą? (1 - taip, 0 - išeiti): ";
+
+        int testi;
+        cin >> testi;
+
+        if (testi == 0) {
+            cout << "Programa baigta.\n";
+            break;
+        }
+
+        cout << "\n--- Naujas užsakymas ---\n\n";
+    }
+
+    return 0;
+}
